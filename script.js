@@ -69,7 +69,7 @@
 
   /* ---------- staggered scroll reveal ---------- */
   if (!reduceMotion && 'IntersectionObserver' in window) {
-    var groups = document.querySelectorAll('.tiers, .gallery-grid, .process, .trust-grid');
+    var groups = document.querySelectorAll('.tiers, .cap-grid, .gallery-grid, .process, .trust-grid');
     groups.forEach(function (g) {
       Array.prototype.forEach.call(g.children, function (child, i) {
         child.classList.add('reveal', 'pre');
