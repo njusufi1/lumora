@@ -4,10 +4,12 @@ A static, no-build website for Lumora (smart home installation, Kosovo): `index.
 
 ## Before you publish
 
-The photos in `index.html` (hero, gallery, developer section) are placeholder stock images pulled live from `loremflickr.com` so the layout has real imagery today. Replace them with your own project photos and videos as soon as your German partner sends them:
+Most of the Gallery section now uses real photos from your German partner's projects (`images/gallery/`): the wall-mounted touch panels, the lighting control screen, and the perimeter cameras. Two extra photos are already in that folder but not yet placed on the page (`camera-corner-2.jpg`, `install-progress-2.jpg`), use them to replace any image below once you have more to choose from.
 
-1. Put your image files in a new `images/` folder in this project.
-2. In `index.html`, swap each `src="https://loremflickr.com/..."` for `src="images/your-file.jpg"`.
+The hero background and the developer-section aerial shot are still placeholder stock images pulled live from `loremflickr.com`, since neither a lifestyle hero photo nor a real gated-community aerial exists yet. Replace them the same way once you have your own:
+
+1. Put your image file in `images/` (or `images/gallery/`).
+2. In `index.html`, swap the relevant `src="..."` for `src="images/your-file.jpg"`.
 
 ## Publish on GitHub
 
