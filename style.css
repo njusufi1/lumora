@@ -178,6 +178,20 @@ section.dark-band .stone-on-dark{ color:color-mix(in srgb, var(--paper) 65%, tra
 .tier li::before{ content:""; position:absolute; left:0; top:0.55em; width:8px; height:1px; background:var(--brass); }
 .tier .tier-for{ font-size:0.78rem; color:var(--stone); }
 
+/* ---------- technology / panel spec cards ---------- */
+.panel-compare{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:1px; }
+@media (max-width:760px){ .panel-compare{ grid-template-columns:1fr; } }
+.panel-spec{ background:var(--paper); padding:clamp(20px,3vw,28px); display:flex; flex-direction:column; gap:18px; }
+.panel-spec.featured{ background:var(--paper-raised); }
+.panel-spec-head h3{ font-family:'Fraunces', serif; font-size:1.6rem; color:var(--brass); }
+.panel-spec-head p{ color:var(--stone); font-size:0.88rem; margin-top:4px; }
+.spec-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.spec-list li{ display:flex; justify-content:space-between; gap:12px; font-size:0.85rem; padding-top:10px; border-top:1px solid var(--line); }
+.spec-list li:first-child{ border-top:none; padding-top:0; }
+.spec-list li > span:first-child{ color:var(--stone); }
+.spec-list li > span:last-child{ text-align:right; }
+.tech-awards{ margin-top:28px; text-align:center; font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.04em; color:var(--stone); }
+
 /* ---------- capabilities ---------- */
 .cap-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
 @media (max-width:860px){ .cap-grid{ grid-template-columns:repeat(2,1fr); } }
@@ -250,6 +264,8 @@ form{ display:flex; flex-direction:column; gap:16px; }
 .contact-info{ display:flex; flex-direction:column; gap:22px; }
 .contact-info .row{ display:flex; gap:14px; }
 .contact-info .k{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color:var(--brass); text-transform:uppercase; letter-spacing:0.08em; min-width:96px; }
+.contact-info a, footer a{ text-decoration-color:var(--line-strong); transition:color .2s, text-decoration-color .2s; }
+.contact-info a:hover, footer a:hover{ color:var(--brass); text-decoration-color:var(--brass); }
 .toast{ margin-top:4px; font-size:0.85rem; color:var(--brass); display:none; }
 .toast.show{ display:block; }
 
