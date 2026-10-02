@@ -69,14 +69,14 @@
 
   /* ---------- staggered scroll reveal ---------- */
   if (!reduceMotion && 'IntersectionObserver' in window) {
-    var groups = document.querySelectorAll('.tiers, .cap-grid, .panel-compare, .gallery-grid, .process, .trust-grid');
+    var groups = document.querySelectorAll('.tiers, .cap-grid, .panel-compare, .gallery-grid, .process, .trust-grid, .explain-grid, .eco-shots');
     groups.forEach(function (g) {
       Array.prototype.forEach.call(g.children, function (child, i) {
         child.classList.add('reveal', 'pre');
         child.style.transitionDelay = (i * 90) + 'ms';
       });
     });
-    var singles = document.querySelectorAll('.section-head, .callout, .contact-grid');
+    var singles = document.querySelectorAll('.section-head, .callout, .contact-grid, .eco-feature, .eco-showcase, .eco-stats, .note-box, .explain-lede');
     singles.forEach(function (s) { s.classList.add('reveal', 'pre'); });
 
     var io = new IntersectionObserver(function (entries) {

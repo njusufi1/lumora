@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<title>Lumora Katalogu</title>
+<style>
+  @page { size: A4; margin: 0; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color:#1C1912;
+    background:#FAF7F1;
+  }
+  .page{
+    width:210mm;
+    height:297mm;
+    padding:18mm 16mm;
+    position:relative;
+    page-break-after:always;
+    overflow:hidden;
+    background:#FAF7F1;
+  }
+  .page:last-child{ page-break-after:auto; }
+  .page.dark{ background:#1C1912; color:#F1EAD9; }
+  h1,h2,h3{ font-family:'Georgia', serif; font-weight:700; margin:0; letter-spacing:0.01em; }
+  p{ margin:0; font-family: Helvetica, Arial, sans-serif; }
+  .sans{ font-family: Helvetica, Arial, sans-serif; }
+  .mono{ font-family:'Courier New', monospace; }
+  .brass{ color:#A8763B; }
+  .stone{ color:#6E6658; }
+  .stone-light{ color:#B9AF9C; }
+  .eyebrow{ font-family: Helvetica, Arial, sans-serif; font-size:10.5pt; letter-spacing:0.14em; text-transform:uppercase; color:#A8763B; }
+  .rule{ height:1px; background:#DBD2BE; margin:6mm 0; }
+  .rule.dark-rule{ background:rgba(241,234,217,0.25); }
+  .footer-tag{ position:absolute; bottom:14mm; left:16mm; right:16mm; display:flex; justify-content:space-between; font-family:Helvetica,Arial,sans-serif; font-size:8.5pt; color:#B9AF9C; }
+  .logo-row{ display:flex; align-items:center; gap:8px; }
+  .logo-row img{ width:26px; height:26px; }
+  .logo-word{ font-size:14pt; font-weight:700; letter-spacing:0.08em; }
+
+  /* cover */
+  .cover{ display:flex; flex-direction:column; justify-content:space-between; height:100%; }
+  .cover .cover-logo{ display:flex; align-items:center; gap:14px; }
+  .cover .cover-logo img{ width:64px; height:64px; }
+  .cover .cover-word{ font-size:30pt; font-weight:700; letter-spacing:0.1em; color:#F1EAD9; }
+  .cover .headline{ font-size:34pt; line-height:1.15; max-width:15ch; color:#F1EAD9; }
+  .cover .headline em{ font-style:italic; color:#D9A868; }
+  .cover .sub{ font-size:12pt; color:#C9BFA9; max-width:42ch; margin-top:8mm; font-family:Helvetica,Arial,sans-serif; }
+  .cover .tagbox{ font-family:Helvetica,Arial,sans-serif; font-size:9.5pt; letter-spacing:0.08em; text-transform:uppercase; color:#D9A868; }
+
+  /* section header block */
+  .sec-head{ margin-bottom:9mm; }
+  .sec-head h2{ font-size:22pt; margin-top:3mm; max-width:22ch; }
+  .sec-head .side{ font-family:Helvetica,Arial,sans-serif; font-size:10pt; color:#6E6658; max-width:60ch; margin-top:3mm; }
+
+  ul.plain{ list-style:none; margin:0; padding:0; }
+  ul.plain li{ font-family:Helvetica,Arial,sans-serif; font-size:10pt; padding-left:14px; position:relative; margin-bottom:2.6mm; }
+  ul.plain li::before{ content:""; position:absolute; left:0; top:0.55em; width:7px; height:1px; background:#A8763B; }
+
+  /* capability grid */
+  .cap-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:6mm 10mm; margin-top:4mm; }
+  .cap-item .k{ font-family:'Courier New',monospace; font-size:9pt; color:#A8763B; }
+  .cap-item h3{ font-size:11.5pt; margin-top:1.5mm; }
+  .cap-item p{ font-size:9pt; color:#6E6658; margin-top:1.5mm; }
+
+  /* tech table */
+  .panel-table{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#DBD2BE; border:1px solid #DBD2BE; margin-top:5mm; }
+  .panel-cell{ background:#FAF7F1; padding:5mm; }
+  .panel-cell.featured{ background:#F1EAD9; }
+  .panel-cell h3{ font-size:16pt; color:#A8763B; }
+  .panel-cell .ptag{ font-family:Helvetica,Arial,sans-serif; font-size:8.5pt; color:#6E6658; margin-top:1mm; }
+  .spec-row{ display:grid; grid-template-columns:20mm 1fr; gap:3mm; font-family:Helvetica,Arial,sans-serif; font-size:8.5pt; padding-top:2mm; margin-top:2mm; border-top:1px solid #DBD2BE; }
+  .spec-row span:first-child{ color:#6E6658; }
+  .spec-row span:last-child{ text-align:right; }
+  .awards-line{ text-align:center; font-family:'Courier New',monospace; font-size:8pt; color:#6E6658; margin-top:6mm; }
+
+  /* pricing */
+  .tiers{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#DBD2BE; border:1px solid #DBD2BE; margin-top:6mm; }
+  .tier{ background:#FAF7F1; padding:6mm 5mm; display:flex; flex-direction:column; gap:4mm; }
+  .tier.featured{ background:#F1EAD9; }
+  .tier .tname{ font-size:15pt; }
+  .tier .tprice{ font-family:'Courier New',monospace; color:#A8763B; font-size:11pt; }
+  .tier .tfor{ font-family:Helvetica,Arial,sans-serif; font-size:8.5pt; color:#6E6658; font-style:italic; }
+  .note-box{ margin-top:6mm; font-family:Helvetica,Arial,sans-serif; font-size:9pt; color:#6E6658; background:#F1EAD9; padding:5mm; border-left:2px solid #A8763B; }
+
+  /* process */
+  .steps{ margin-top:5mm; }
+  .step{ display:grid; grid-template-columns:16mm 1fr; gap:5mm; padding:4mm 0; border-top:1px solid #DBD2BE; }
+  .step:last-child{ border-bottom:1px solid #DBD2BE; }
+  .step .snum{ font-size:15pt; font-style:italic; color:#A8763B; }
+  .step h3{ font-size:11.5pt; }
+  .step p{ font-size:9pt; color:#6E6658; margin-top:1.5mm; }
+
+  /* gallery */
+  .gal-grid{ display:grid; grid-template-columns:1fr 1fr; grid-template-rows:66mm 56mm 56mm; gap:3mm; margin-top:5mm; }
+  .gal-item{ position:relative; overflow:hidden; }
+  .gal-item.span2{ grid-column:span 2; }
+  .gal-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gal-cap{ position:absolute; left:0; right:0; bottom:0; padding:3mm 4mm; background:linear-gradient(0deg, rgba(0,0,0,0.68), transparent); color:#F1EAD9; font-family:Helvetica,Arial,sans-serif; font-size:8.5pt; }
+
+  /* contact page */
+  .contact-grid{ display:flex; flex-direction:column; gap:5mm; margin-top:10mm; }
+  .contact-row{ display:flex; gap:6mm; font-family:Helvetica,Arial,sans-serif; font-size:11pt; }
+  .contact-row .k{ font-family:'Courier New',monospace; font-size:9pt; color:#D9A868; text-transform:uppercase; min-width:32mm; }
+  .cta{ margin-top:14mm; font-size:16pt; color:#F1EAD9; max-width:26ch; }
+</style>
+</head>
+<body>
+
+  <!-- COVER -->
+  <div class="page dark cover">
+    <div>
+      <div class="cover-logo">
+        <img src="images/lumora-icon.png" alt="">
+        <div class="cover-word">LUMORA</div>
+      </div>
+      <div class="tagbox" style="margin-top:16mm;">Automatizim i Shtëpive Inteligjente</div>
+      <h1 class="headline" style="margin-top:6mm;">Shtëpia që <em>e di</em> tashmë çfarë doni prej saj.</h1>
+      <p class="sub">Dizajnojmë dhe instalojmë automatizim të plotë për shtëpi: drita, klimë, siguri dhe hyrje, të gjitha si një sistem i vetëm, nga një ekip i licencuar, i trajnuar në projekte reale në Gjermani.</p>
+    </div>
+    <div class="sans" style="font-size:9.5pt; color:#C9BFA9;">Katalogu i Shërbimeve &amp; Çmimeve &middot; 2026 &middot; lumora-ks.com</div>
+  </div>
+
+  <!-- KUSH JEMI NE -->
+  <div class="page">
+    <div class="sec-head">
+      <p class="eyebrow">Kush jemi ne</p>
+      <h2>Standard gjerman, ekip i licencuar në Kosovë.</h2>
+      <p class="side">Lumora sjell automatizimin e shtëpive inteligjente në Kosovë, të mbështetur nga tre partneritete që shumica e instaluesve nuk i kanë.</p>
+    </div>
+    <div class="cap-grid" style="grid-template-columns:1fr; gap:5mm;">
+      <div class="cap-item">
+        <div class="k">Konsulent</div>
+        <h3>Miratuar nga një firmë e vërtetë gjermane</h3>
+        <p>Smart Elektrotechnik (Troisdorf, Gjermani) konsultohet për çdo projekt, viziton në objekt dhe teston çdo sistem para se t'ia dorëzojmë klientit.</p>
+      </div>
+      <div class="cap-item">
+        <div class="k">Ekipi</div>
+        <h3>Një ekip lokal me përvojë</h3>
+        <p>Ekipi ynë i instalimit në Kosovë ka vite përvojë praktike në punë elektrike dhe automatizim, tani të mbështetur nga marketingu dhe shitjet që nuk i kishte më parë.</p>
+      </div>
+      <div class="cap-item">
+        <div class="k">Furnizimi</div>
+        <h3>Rishitës i licencuar rajonal</h3>
+        <p>Pajisjet sigurohen përmes një rishitësi zyrtar të autorizuar nga prodhuesi, në rajonin e Prishtinës dhe Fushë Kosovës: komponentë origjinalë, garanci reale.</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="sec-head">
+      <p class="eyebrow">Çka ofrojmë</p>
+      <h2 style="font-size:18pt;">Fusha jonë e plotë e punës.</h2>
+    </div>
+    <div class="cap-grid">
+      <div class="cap-item"><div class="k">01</div><h3>Instalime Elektrike &amp; Kabllim</h3><p>Kabllim, planifikim qarqesh, modernizim i kutive të sigurresave.</p></div>
+      <div class="cap-item"><div class="k">02</div><h3>Sisteme KNX &amp; Shtëpi Inteligjente</h3><p>Automatizim i dritave/perdeve, panele kontrolli, menaxhim nga aplikacioni.</p></div>
+      <div class="cap-item"><div class="k">03</div><h3>Integrim Fotovoltaik</h3><p>Panele diellore të lidhura direkt me sistemin elektrik të shtëpisë.</p></div>
+      <div class="cap-item"><div class="k">04</div><h3>Karikim për Vetura Elektrike</h3><p>Instalim wallbox, menaxhim ngarkese për disa pika karikimi.</p></div>
+      <div class="cap-item"><div class="k">05</div><h3>Rrjet &amp; Komunikim</h3><p>Kabllim i strukturuar dhe priza të dhënash, gati për çdo pajisje të re.</p></div>
+      <div class="cap-item"><div class="k">06</div><h3>Alarm &amp; Video Survejim</h3><p>Sisteme sigurie dhe kamera CCTV, të integruara me hyrjen kryesore.</p></div>
+      <div class="cap-item"><div class="k">07</div><h3>Dizajn i Ndriçimit LED</h3><p>Ndriçim funksional dhe dekorativ, dhomë pas dhome.</p></div>
+      <div class="cap-item"><div class="k">08</div><h3>Mirëmbajtje &amp; Riparime</h3><p>Diagnostikim, riparime dhe zgjerime pas instalimit fillestar.</p></div>
+    </div>
+    <div class="footer-tag"><span>Lumora &middot; Katalogu 2026</span><span>02</span></div>
+  </div>
+
+  <!-- TEKNOLOGJIA -->
+  <div class="page">
+    <div class="sec-head">
+      <p class="eyebrow">Teknologjia</p>
+      <h2>Panele të certifikuara, jo tableta gjenerike.</h2>
+      <p class="side">Instalojmë panelet KNX të GVS, të njëjtën linjë produktesh që partneri ynë gjerman përdor në projektet e veta.</p>
+    </div>
+    <div class="panel-table">
+      <div class="panel-cell">
+        <h3>S10</h3>
+        <p class="ptag">Qendra kryesore</p>
+        <div class="spec-row"><span>Ekrani</span><span class="mono">10.1", 1280&times;800</span></div>
+        <div class="spec-row"><span>Funksione</span><span class="mono">240 kanale KNX</span></div>
+        <div class="spec-row"><span>Përfshin</span><span class="mono">Interkom SIP, app server</span></div>
+        <div class="spec-row"><span>Për</span><span class="mono">Hyrje, hapësira kryesore</span></div>
+      </div>
+      <div class="panel-cell featured">
+        <h3>S7</h3>
+        <p class="ptag">Paneli i përditshëm</p>
+        <div class="spec-row"><span>Ekrani</span><span class="mono">6.9", 1440&times;720</span></div>
+        <div class="spec-row"><span>Funksione</span><span class="mono">120 kanale KNX</span></div>
+        <div class="spec-row"><span>Përfshin</span><span class="mono">Modul rrotullues/tasti</span></div>
+        <div class="spec-row"><span>Për</span><span class="mono">Dhoma gjumi, kuzhinë</span></div>
+      </div>
+      <div class="panel-cell">
+        <h3>S3</h3>
+        <p class="ptag">Kontrollori kompakt</p>
+        <div class="spec-row"><span>Ekrani</span><span class="mono">3.3" me tasta xhami</span></div>
+        <div class="spec-row"><span>Funksione</span><span class="mono">36 kanale KNX</span></div>
+        <div class="spec-row"><span>Përfshin</span><span class="mono">Sensor temp./lagështie</span></div>
+        <div class="spec-row"><span>Për</span><span class="mono">Korridore, dhoma miqsh</span></div>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="cap-grid">
+      <div class="cap-item">
+        <div class="k">Tastiera</div>
+        <h3>Seria WALTZ, në 5 ngjyra</h3>
+        <p>Tastiera alumini pa kornizë dhe WALTZ Touch+ Pad, në bardhë, argjend, shampanjë, antracit ose zi, me LED RGB statusi.</p>
+      </div>
+      <div class="cap-item">
+        <div class="k">Standardi</div>
+        <h3>KNX i certifikuar &amp; KNX Secure</h3>
+        <p>Ndërtuar mbi standardin e hapur KNX, jo në një ekosistem të mbyllur, sistemi mbetet i shërbyeshëm e i zgjerueshëm për dekada.</p>
+      </div>
+      <div class="cap-item">
+        <div class="k">Ekstra</div>
+        <h3>Zë dhe survejim të integruar</h3>
+        <p>Punon me Amazon Alexa dhe Google Assistant, me kamera Ubiquiti UniFi të lidhura në të njëjtin sistem.</p>
+      </div>
+    </div>
+    <p class="awards-line">Reddot Award &middot; iF Design Award &middot; MUSE Design Award (Ari) &middot; IDA Design Award &middot; KNX Association Certified</p>
+    <div class="footer-tag"><span>Lumora &middot; Katalogu 2026</span><span>03</span></div>
+  </div>
+
+  <!-- PAKETAT & CMIMET -->
+  <div class="page">
+    <div class="sec-head">
+      <p class="eyebrow">Paketat &amp; Çmimet</p>
+      <h2>Tri mënyra për të filluar.</h2>
+      <p class="side">Çmimi ofrohet për shtëpi, pas një vizite falas. Për lagje me 30&ndash;50 shtëpi ofrohet çmim i veçantë, i standardizuar për njësi.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <div class="tname">Essential</div>
+        <div class="tprice">Fillon nga &euro;1,500</div>
+        <ul class="plain">
+          <li>Kontroll inteligjent i dritave, dhomë pas dhome</li>
+          <li>Termostat inteligjent &amp; orar klimatizimi</li>
+          <li>Integrim me sistemin e alarmit dhe sigurisë</li>
+          <li>Një aplikacion për të gjithë shtëpinë</li>
+        </ul>
+        <p class="tfor">Për një dhomë, ose një shije të parë të automatizimit.</p>
+      </div>
+      <div class="tier featured">
+        <div class="tname">Comfort</div>
+        <div class="tprice">Fillon nga &euro;5,000</div>
+        <ul class="plain">
+          <li>Gjithçka nga Essential</li>
+          <li>Perde dhe roleta të motorizuara</li>
+          <li>Audio në disa dhoma (multi-room)</li>
+          <li>Kontroll inteligjent i hyrjes në çdo derë</li>
+          <li>Automatizim skenash nëpër dhoma</li>
+        </ul>
+        <p class="tfor">Paketa jonë më e kërkuar, për një shtëpi të përfunduar.</p>
+      </div>
+      <div class="tier">
+        <div class="tname">Signature</div>
+        <div class="tprice">Fillon nga &euro;15,000</div>
+        <ul class="plain">
+          <li>Gjithçka nga Comfort</li>
+          <li>Automatizim i plotë, i integruar në arkitekturë</li>
+          <li>Kinema shtëpiake &amp; sistem AV i integruar</li>
+          <li>Monitorim energjie &amp; instalim gati për diell</li>
+          <li>Vënie në punë e dedikuar &amp; vizitë vjetore</li>
+        </ul>
+        <p class="tfor">Për një shtëpi të projektuar me automatizim që nga planet.</p>
+      </div>
+    </div>
+    <div class="note-box">
+      Çmimet përfshijnë punën e ekipit tonë të certifikuar dhe pajisjet bazë. Çmimi final konfirmohet pas një vizite falas në objekt, në bazë të numrit të dhomave, pikave dhe pajisjeve të nevojshme. Koha e instalimit varion nga 3&ndash;4 ditë pune (Essential) deri në 8&ndash;10 ditë pune (Signature), përfshirë programimin.
+    </div>
+    <div class="footer-tag"><span>Lumora &middot; Katalogu 2026</span><span>04</span></div>
+  </div>
+
+  <!-- SI FUNKSIONON -->
+  <div class="page">
+    <div class="sec-head">
+      <p class="eyebrow">Si funksionon</p>
+      <h2>Nga vizita e parë deri te dorëzimi.</h2>
+      <p class="side">Çdo projekt kalon nëpër të njëjtat pesë faza, qoftë një dhomë apo një komplet me 50 shtëpi.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="snum">01</div><div><h3>Konsultim &amp; Vizitë</h3><p>Vizitojmë shtëpinë ose planet, kuptojmë si jeton familja dhe shohim çfarë është kabëlluar tashmë.</p></div></div>
+      <div class="step"><div class="snum">02</div><div><h3>Dizajnimi i Sistemit &amp; Oferta</h3><p>Plan automatizimi dhomë pas dhome dhe një ofertë fikse, sipas paketës Essential, Comfort ose Signature.</p></div></div>
+      <div class="step"><div class="snum">03</div><div><h3>Instalim i Licencuar</h3><p>Teknikë të certifikuar instalojnë çdo qark, me pajisje të siguruara nga rishitësi ynë zyrtar i autorizuar.</p></div></div>
+      <div class="step"><div class="snum">04</div><div><h3>Programim &amp; Dorëzim</h3><p>Skenat, oraret dhe hyrja konfigurohen në objekt, më pas shpjegohen për të gjithë familjen.</p></div></div>
+      <div class="step"><div class="snum">05</div><div><h3>Mbështetje e Vazhdueshme</h3><p>Linjë direkte për ndryshime, plus një vizitë vjetore mirëmbajtjeje për paketat Comfort dhe Signature.</p></div></div>
+    </div>
+    <div class="rule"></div>
+    <div class="sec-head">
+      <p class="eyebrow">Për zhvillues</p>
+      <h2 style="font-size:16pt;">Një standard, për tërë lagjen.</h2>
+      <p class="side">Kosova po ndërton lagje të mbyllura me shtëpi luksoze, dhe ne punojmë me zhvillues për ta bërë automatizimin pjesë të planeve, jo një shtesë të vonshme: një kontratë, një ekip instalimi, një garanci, për 30&ndash;50 shtëpi.</p>
+    </div>
+    <div class="footer-tag"><span>Lumora &middot; Katalogu 2026</span><span>05</span></div>
+  </div>
+
+  <!-- GALERIA -->
+  <div class="page">
+    <div class="sec-head">
+      <p class="eyebrow">Puna jonë</p>
+      <h2>Si duket dhe si ndihet një shtëpi Lumora.</h2>
+      <p class="side">Instalime reale nga projektet e partnerit tonë, i njëjti standard që ekipi ynë në Kosovë është trajnuar ta ndjekë.</p>
+    </div>
+    <div class="gal-grid">
+      <div class="gal-item span2">
+        <img src="images/gallery/panel-lighting.jpg" alt="">
+        <div class="gal-cap">Një panel, drita e çdo dhome, brenda sekondave</div>
+      </div>
+      <div class="gal-item">
+        <img src="images/gallery/panel-home.jpg" alt="">
+        <div class="gal-cap">Ekrani kryesor, ndërtuar rreth përdorimit real</div>
+      </div>
+      <div class="gal-item">
+        <img src="images/gallery/camera-corner-1.jpg" alt="">
+        <div class="gal-cap">Kamera perimetrale, të lidhura në sistem</div>
+      </div>
+      <div class="gal-item">
+        <img src="images/gallery/install-progress-1.jpg" alt="">
+        <div class="gal-cap">Instaluar gjatë ndërtimit, jo më vonë</div>
+      </div>
+      <div class="gal-item">
+        <img src="images/gallery/panel-hallway.jpg" alt="">
+        <div class="gal-cap">Çdo panel, i montuar rrafsh me murin</div>
+      </div>
+    </div>
+    <div class="footer-tag"><span>Lumora &middot; Katalogu 2026</span><span>06</span></div>
+  </div>
+
+  <!-- KONTAKT -->
+  <div class="page dark">
+    <div class="logo-row">
+      <img src="images/lumora-icon.png" alt="">
+      <div class="logo-word">LUMORA</div>
+    </div>
+    <h2 class="cta">Rezervoni një vizitë falas dhe merrni një ofertë brenda 2 ditësh pune.</h2>
+    <div class="rule dark-rule"></div>
+    <div class="contact-grid">
+      <div class="contact-row"><span class="k">Zyra</span><span>Prime Residence, Prishtinë, Kosovë, 10000</span></div>
+      <div class="contact-row"><span class="k">Email</span><span>info@lumora-ks.com</span></div>
+      <div class="contact-row"><span class="k">Telefon</span><span>+383 49 474 702</span></div>
+      <div class="contact-row"><span class="k">Web</span><span>lumora-ks.com</span></div>
+      <div class="contact-row"><span class="k">Orari</span><span>Hën &ndash; Pre, 09:00 &ndash; 18:00</span></div>
+    </div>
+    <div class="footer-tag" style="color:#8A8064;"><span>Lumora &middot; Katalogu 2026</span><span>07</span></div>
+  </div>
+
+</body>
+</html>

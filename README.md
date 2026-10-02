@@ -11,6 +11,8 @@ The hero background and the developer-section aerial shot are still placeholder 
 1. Put your image file in `images/` (or `images/gallery/`).
 2. In `index.html`, swap the relevant `src="..."` for `src="images/your-file.jpg"`.
 
+The new "Ecosystem" section (`images/knx/`) uses screenshots from knx.org, used under the permission your KNX agreement covers. If that agreement changes, swap these for your own photography the same way, or remove the section.
+
 ## Publish on GitHub
 
 1. Create a new repository on GitHub (e.g. `lumora-living`).
